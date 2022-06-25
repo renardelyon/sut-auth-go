@@ -7,12 +7,13 @@ import (
 )
 
 type Config struct {
-	Port   string `mapstructure:"PORT"`
-	DBUrl  string `mapstructure:"DB_URL"`
-	JWTKey string `mapstructure:"JWT_SECRET_KEY"`
+	Port     string `mapstructure:"PORT"`
+	DBUrl    string `mapstructure:"DB_URL"`
+	JWTKey   string `mapstructure:"JWT_SECRET_KEY"`
+	AdminKey string `mapstructure:"ADMIN_KEY"`
 }
 
-func loadConfig(config Config, err error) {
+func loadConfig() (config Config, err error) {
 	viper.AddConfigPath("sut-auth-go/config/env/dev.env")
 	viper.SetConfigName("dev")
 	viper.SetConfigType("env")
