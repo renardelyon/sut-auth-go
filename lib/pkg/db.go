@@ -3,7 +3,7 @@ package db
 import (
 	"log"
 
-	"sut-auth-go/model"
+	modelAuth "sut-auth-go/domain/auth/model"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -19,7 +19,7 @@ func Init(url string) Handler {
 		log.Fatalln(err.Error())
 	}
 
-	models := []interface{}{&model.User{}, &model.Admin{}}
+	models := []interface{}{&modelAuth.User{}, modelAuth.Admin{}, &modelAuth.Token{}}
 	err = db.AutoMigrate(models...)
 	if err != nil {
 		log.Fatalln(err.Error())

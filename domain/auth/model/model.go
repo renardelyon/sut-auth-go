@@ -17,3 +17,7 @@ type Admin struct {
 	Password string
 	Role     string
 }
+
+type Token struct {
+	Token string
+}
