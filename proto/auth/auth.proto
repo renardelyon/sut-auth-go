@@ -38,13 +38,17 @@ message AuthenticateRequest {
     string token = 1;
 }
 
+message UserInfo {
+    string id = 1;
+    string username = 2;
+    string name = 3;
+    Role role = 4;
+}
+
 message AuthenticateResponse {
     int64 status = 1;
     string error = 2;
-    string id = 3;
-    string username = 4;
-    string name = 5;
-    Role role = 6;
+    UserInfo UserInfo = 3;
 }
 
 message LoginRequest {
