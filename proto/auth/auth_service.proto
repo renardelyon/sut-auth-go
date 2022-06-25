@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "sut-auth-go/proto/auth";
+
+import "auth/auth.proto";
+
+service AuthService {
+    rpc RegisterUser(UserRegisterRequest) returns (UserRegisterResponse) {}
+    rpc RegisterAdmin(AdminRegisterRequest) returns (AdminRegisterResponse) {}
+    rpc Login(LoginRequest) returns (LoginResponse) {}
+    rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse) {}
+}
