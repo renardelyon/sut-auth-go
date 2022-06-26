@@ -7,6 +7,7 @@ option go_package = "sut-auth-go/proto/auth";
 import "auth/auth.proto";
 
 service AuthService {
+    rpc GetUserByRole(GetUserByRoleRequest) returns (GetUserByRoleResponse) {} 
     rpc RegisterUser(UserRegisterRequest) returns (UserRegisterResponse) {}
     rpc RegisterAdmin(AdminRegisterRequest) returns (AdminRegisterResponse) {}
     rpc Login(LoginRequest) returns (LoginResponse) {}

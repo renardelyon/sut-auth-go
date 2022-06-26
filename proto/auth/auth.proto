@@ -62,6 +62,23 @@ message LoginResponse {
     string token = 3;
 }
 
+message GetUserByRoleRequest {
+    string role = 1;
+}
+
+message UserAdminInfo {
+    string id = 1;
+    string username = 2;
+    string name = 3;
+    string role = 4;
+}
+
+message GetUserByRoleResponse {
+    int64 status = 1;
+    string error = 2;
+    repeated UserAdminInfo UserAdminInfo = 3;
+}
+
 
 
 

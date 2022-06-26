@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 	"sut-auth-go/config"
-	service "sut-auth-go/domain/auth"
+	"sut-auth-go/domain/auth/service"
 	db "sut-auth-go/lib/pkg"
 	"sut-auth-go/lib/utils"
 	pb "sut-auth-go/pb/auth"
@@ -34,15 +34,11 @@ func main() {
 
 	fmt.Println("Auth service on Port: ", c.Port)
 
-	s := service.Service{
-		H:   h,
-		Jwt: jwt,
-		C:   c,
-	}
+	s := service.NewService(h, jwt, c)
 
 	grpcServer := grpc.NewServer()
 
-	pb.RegisterAuthServiceServer(grpcServer, &s)
+	pb.RegisterAuthServiceServer(grpcServer, s)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalln("Failed to serve:", err)
