@@ -74,8 +74,7 @@ func (s *Service) Login(ctx context.Context, reqLogin *pb.LoginRequest) (*pb.Log
 	}
 
 	s.H.DB.Create(&model.Token{
-		Token: token,
-		Id:    ua.Id,
+		Token: refreshToken,
 	})
 
 	return &pb.LoginResponse{
