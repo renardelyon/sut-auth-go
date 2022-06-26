@@ -48,7 +48,7 @@ message UserInfo {
 message AuthenticateResponse {
     int64 status = 1;
     string error = 2;
-    UserInfo UserInfo = 3;
+    UserInfo userinfo = 3;
 }
 
 message LoginRequest {

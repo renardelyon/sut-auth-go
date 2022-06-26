@@ -13,14 +13,14 @@ type Config struct {
 	AdminKey string `mapstructure:"ADMIN_KEY"`
 }
 
-func loadConfig() (config Config, err error) {
-	viper.AddConfigPath("sut-auth-go/config/env/dev.env")
+func LoadConfig() (config Config, err error) {
+	viper.AddConfigPath("./config/env")
 	viper.SetConfigName("dev")
 	viper.SetConfigType("env")
 
 	viper.AutomaticEnv()
 
-	err = viper.ReadConfig()
+	err = viper.ReadInConfig()
 	if err != nil {
 		log.Println("Error: ", err.Error())
 		return
