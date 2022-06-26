@@ -60,6 +60,7 @@ message LoginResponse {
     int64 status = 1;
     string error = 2;
     string token = 3;
+    string refreshtoken = 4;
 }
 
 message GetUserByRoleRequest {
@@ -77,6 +78,25 @@ message GetUserByRoleResponse {
     int64 status = 1;
     string error = 2;
     repeated UserAdminInfo UserAdminInfo = 3;
+}
+
+message DeleteTokenRequest {
+    string token = 1;
+}
+
+message DeleteTokenResponse {
+    int64 status = 1;
+    string error = 2;
+}
+
+message GenerateNewTokenRequest {
+    string refreshToken = 1;
+}
+
+message GenerateNewTokenResponse {
+    int64 status = 1;
+    string error = 2;
+    string newToken = 3;
 }
 
 

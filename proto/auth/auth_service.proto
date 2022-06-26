@@ -12,4 +12,6 @@ service AuthService {
     rpc RegisterAdmin(AdminRegisterRequest) returns (AdminRegisterResponse) {}
     rpc Login(LoginRequest) returns (LoginResponse) {}
     rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse) {}
+    rpc DeleteToken(DeleteTokenRequest) returns (DeleteTokenResponse) {}
+    rpc GenerateNewToken(GenerateNewTokenRequest) returns (GenerateNewTokenResponse) {}
 }
