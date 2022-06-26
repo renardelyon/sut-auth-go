@@ -59,6 +59,10 @@ func (s *Service) Login(ctx context.Context, reqLogin *pb.LoginRequest) (*pb.Log
 		}, nil
 	}
 
+	s.H.DB.Create(&model.Token{
+		Token: token,
+	})
+
 	return &pb.LoginResponse{
 		Status: http.StatusOK,
 		Token:  token,
