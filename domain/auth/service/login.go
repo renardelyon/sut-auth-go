@@ -59,12 +59,28 @@ func (s *Service) Login(ctx context.Context, reqLogin *pb.LoginRequest) (*pb.Log
 		}, nil
 	}
 
+	newJwt := utils.JwtWrapper{
+		SecretKey:       s.Jwt.SecretKey,
+		Issuer:          s.Jwt.Issuer,
+		ExpirationHours: 24 * 365,
+	}
+
+	refreshToken, err := newJwt.GenerateAccessToken(ua)
+	if err != nil {
+		return &pb.LoginResponse{
+			Status: http.StatusInternalServerError,
+			Error:  err.Error(),
+		}, nil
+	}
+
 	s.H.DB.Create(&model.Token{
 		Token: token,
+		Id:    ua.Id,
 	})
 
 	return &pb.LoginResponse{
-		Status: http.StatusOK,
-		Token:  token,
+		Status:       http.StatusOK,
+		Token:        token,
+		Refreshtoken: refreshToken,
 	}, nil
 }

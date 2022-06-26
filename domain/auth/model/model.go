@@ -19,5 +19,6 @@ type Admin struct {
 }
 
 type Token struct {
+	Id    string `gorm:"primaryKey"`
 	Token string
 }
