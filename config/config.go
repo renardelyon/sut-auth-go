@@ -7,10 +7,11 @@ import (
 )
 
 type Config struct {
-	Port     string `mapstructure:"PORT"`
-	DBUrl    string `mapstructure:"DB_URL"`
-	JWTKey   string `mapstructure:"JWT_SECRET_KEY"`
-	AdminKey string `mapstructure:"ADMIN_KEY"`
+	Port      string `mapstructure:"PORT"`
+	DBUrl     string `mapstructure:"DB_URL"`
+	JWTKey    string `mapstructure:"JWT_SECRET_KEY"`
+	AdminKey  string `mapstructure:"ADMIN_KEY"`
+	NotifHost string `mapstructure:"NOTIF_HOST"`
 }
 
 func LoadConfig() (config Config, err error) {
