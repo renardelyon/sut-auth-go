@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"log"
 	"net/http"
 	"sut-auth-go/domain/auth/model"
 	"sut-auth-go/lib/utils"
@@ -30,9 +31,22 @@ func (s *Service) RegisterUser(ctx context.Context, reqUser *pb.UserRegisterRequ
 		Password: utils.HashPassword(reqUser.Password),
 	}
 
-	s.H.DB.Create(newUser)
+	if res := s.H.DB.Create(newUser); res.Error != nil {
+		log.Println(res.Error)
+		return &pb.UserRegisterResponse{
+			Status: http.StatusInternalServerError,
+			Error:  res.Error.Error(),
+		}, nil
+	}
 
-	// TODO: connect to notification service
+	resp, _ := s.NotifInterface.SubscribeNotificationByUserId(uuid.String())
+	if resp.Error != "" {
+		log.Println(resp.Error)
+		return &pb.UserRegisterResponse{
+			Status: http.StatusInternalServerError,
+			Error:  resp.Error,
+		}, nil
+	}
 
 	return &pb.UserRegisterResponse{
 		Status: http.StatusCreated,
