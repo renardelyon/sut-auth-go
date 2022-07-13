@@ -1,16 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"net"
+	"sut-auth-go/application"
 	"sut-auth-go/config"
 	"sut-auth-go/domain/auth/service"
-	db "sut-auth-go/lib/pkg"
-	"sut-auth-go/lib/utils"
 	pb "sut-auth-go/pb/auth"
-
-	"google.golang.org/grpc"
 )
 
 func main() {
@@ -19,29 +14,18 @@ func main() {
 		log.Fatalln("Failed at config: ", err.Error())
 	}
 
-	h := db.Init(c.DBUrl)
-
-	jwt := utils.JwtWrapper{
-		SecretKey:       c.JWTKey,
-		Issuer:          "sut-auth-go",
-		ExpirationHours: 1,
-	}
-
-	lis, err := net.Listen("tcp", c.Port)
+	app, err := application.Setup(&c)
 	if err != nil {
-		log.Fatalf("Cannot listen PORT: %s", c.Port)
+		log.Fatalln("Failed at application setup: ", err.Error())
 	}
 
-	fmt.Println("Auth service on Port: ", c.Port)
+	s := service.NewService(app.DbClients, app.JwtWrapper, c)
 
-	s := service.NewService(h, jwt, c)
+	pb.RegisterAuthServiceServer(app.GrpcServer, s)
 
-	grpcServer := grpc.NewServer()
-
-	pb.RegisterAuthServiceServer(grpcServer, s)
-
-	if err := grpcServer.Serve(lis); err != nil {
-		log.Fatalln("Failed to serve:", err)
+	err = app.Run(&c)
+	if err != nil {
+		log.Fatalln(err.Error())
 	}
 
 }

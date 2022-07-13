@@ -2,7 +2,7 @@ package service
 
 import (
 	"sut-auth-go/config"
-	db "sut-auth-go/lib/pkg"
+	"sut-auth-go/lib/pkg/db"
 	"sut-auth-go/lib/utils"
 )
 
