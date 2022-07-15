@@ -37,6 +37,7 @@ func (s *Service) Authenticate(ctx context.Context, reqAuth *pb.AuthenticateRequ
 			Username: user.Username,
 			Name:     user.Name,
 			Role:     pb.Role_USER,
+			AdminId:  user.AdminId,
 		}
 	} else {
 		auth = &pb.UserInfo{

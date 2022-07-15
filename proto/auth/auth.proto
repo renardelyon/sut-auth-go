@@ -43,6 +43,7 @@ message UserInfo {
     string username = 2;
     string name = 3;
     Role role = 4;
+    string adminId = 5;
 }
 
 message AuthenticateResponse {
@@ -61,6 +62,7 @@ message LoginResponse {
     string error = 2;
     string token = 3;
     string refreshtoken = 4;
+    UserInfo userInfo = 5;
 }
 
 message GetUserByRoleRequest {

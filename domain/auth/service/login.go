@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"net/http"
+	"strings"
 	"sut-auth-go/domain/auth/model"
 	"sut-auth-go/lib/utils"
 	pb "sut-auth-go/pb/auth"
@@ -81,5 +82,11 @@ func (s *Service) Login(ctx context.Context, reqLogin *pb.LoginRequest) (*pb.Log
 		Status:       http.StatusOK,
 		Token:        token,
 		Refreshtoken: refreshToken,
+		UserInfo: &pb.UserInfo{
+			Id:       ua.Id,
+			Username: ua.Name,
+			Name:     ua.Name,
+			Role:     pb.Role(pb.Role_value[strings.ToUpper(ua.Role)]),
+		},
 	}, nil
 }
