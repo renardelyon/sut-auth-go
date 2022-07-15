@@ -15,7 +15,7 @@ func (s *Service) RegisterAdmin(ctx context.Context, reqAdmin *pb.AdminRegisterR
 	if result := s.H.DB.Where(&model.Admin{Username: reqAdmin.Username}).First(&admin); result.Error == nil {
 		return &pb.AdminRegisterResponse{
 			Status: http.StatusConflict,
-			Error:  "Email Already Exists",
+			Error:  "Username Already Exists",
 		}, nil
 	}
 
