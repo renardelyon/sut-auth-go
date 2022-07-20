@@ -5,8 +5,8 @@ Microservice for handling user and admin authentication
 
 1. Create file env and name it `dev.env`. its content can be seen in code block below. 
 ```
-PORT=
-NOTIF_HOST=
+PORT=:50051
+NOTIF_HOST=:50055
 DB_URL=
 JWT_SECRET_KEY=
 ADMIN_KEY=
