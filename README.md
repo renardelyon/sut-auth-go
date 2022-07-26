@@ -34,3 +34,9 @@ make proto-gen
 ```
 make run
 ```
+
+## Using docker
+```
+docker build --tag=sut/auth-service --build-arg SERVICE=sut-auth-go --build-arg PORT=50051 .
+docker run -p 50051:50051 <IMAGE_ID>
+```
